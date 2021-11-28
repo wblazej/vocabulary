@@ -5,7 +5,7 @@ class Storage {
 
     getBoard = (id: string) => this.readLocalStorage()[id]
 
-    getBoards = () => this.readLocalStorage()
+    getBoards = (): {[key: string]: IBoard} => this.readLocalStorage()
 
     createBoard = (new_board: IBoard) => {
         const boards = this.readLocalStorage()
@@ -26,7 +26,16 @@ class Storage {
 
     generateUUID = (): string => {
         const crypto = require("crypto");
-        return crypto.randomBytes(30).toString('hex');
+        
+        let uuid = ''
+
+        while (true) {
+            uuid = crypto.randomBytes(5).toString('hex');
+            if (!this.getBoard(uuid))
+                break
+        }
+
+        return uuid
     }
 }
 

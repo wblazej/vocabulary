@@ -1,0 +1,57 @@
+@import './variables';
+
+.home-page-container {
+    .games {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 2em;
+        margin-bottom: 2em;
+
+        .game {
+            border: 1px solid $secondary-color;
+            border-radius: .5em;
+            width: 10em;
+            padding: 1em;
+            cursor: pointer;
+            transition: border-color .3s, box-shadow .3s;
+            text-decoration: none;
+
+            span {
+                text-align: center;
+                display: block;
+                font-size: 1.1rem;
+                padding-bottom: .5em;
+                margin-bottom: 1em;
+                border-bottom: 1px solid $secondary-color;
+            }
+
+            .icon {
+                width: 5em;
+                height: 5em;
+                margin: auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 1em;
+
+                img {
+                    width: 80%;
+                    height: auto;
+                    transition: width .3s;
+                }
+            }
+
+            &:hover {
+                border-color: $accent-color;
+                box-shadow: 0 0 20px 1px #000000;
+
+                .icon {
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

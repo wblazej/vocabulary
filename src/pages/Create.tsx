@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Delete from '../icons/Delete';
 import Plus from '../icons/Plus';
 import Storage from '../ts/storage';
