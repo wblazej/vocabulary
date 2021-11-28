@@ -1,19 +1,19 @@
-import IBoard from "../typing/board"
+import IGame from "../typing/game"
 
 class Storage {
     storageItemName = "boards"
 
-    getBoard = (id: string) => this.readLocalStorage()[id]
+    getGame = (id: string): IGame => this.readLocalStorage()[id]
 
-    getBoards = (): {[key: string]: IBoard} => this.readLocalStorage()
+    getGames = (): {[key: string]: IGame} => this.readLocalStorage()
 
-    createBoard = (new_board: IBoard) => {
+    createGame = (new_board: IGame) => {
         const boards = this.readLocalStorage()
         boards[this.generateUUID()] = new_board
         localStorage.setItem(this.storageItemName, JSON.stringify(boards))
     }
 
-    deleteBoard = (id: string) => {
+    deleteGame = (id: string) => {
         const boards = this.readLocalStorage()
         delete boards[id]
         localStorage.setItem(this.storageItemName, JSON.stringify(boards))
@@ -31,7 +31,7 @@ class Storage {
 
         while (true) {
             uuid = crypto.randomBytes(5).toString('hex');
-            if (!this.getBoard(uuid))
+            if (!this.getGame(uuid))
                 break
         }
 

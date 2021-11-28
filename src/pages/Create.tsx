@@ -28,7 +28,7 @@ const Create = () => {
             if (words.filter(word => word.filter(translation => translation === '').length).length) 
                 return toast.error("Any word translation field cannot be blank")
 
-            storage.createBoard({
+            storage.createGame({
                 name: name,
                 fields: fields,
                 words: words

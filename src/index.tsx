@@ -22,7 +22,7 @@ ReactDOM.render(
 					<Route path='/'>
 						<Route index element={<Home/>}/>
 						<Route path='/create' element={<Create/>}/>
-						<Route path='/game' element={<Game/>}/>
+						<Route path='/game/:id' element={<Game/>}/>
 					</Route>
 				</Routes>
 			</BrowserRouter>

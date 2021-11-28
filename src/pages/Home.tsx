@@ -6,8 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
     const [storage] = useState(new Storage())
-    const [games] = useState(storage.getBoards())
-    console.log(games)
+    const [games] = useState(storage.getGames())
 
     return (
         <div className="home-page-container">

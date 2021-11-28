@@ -1,0 +1,43 @@
+@import './variables';
+
+.game-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .word-to-translate {
+        font-size: 2rem;
+        margin: 0 auto;
+        padding: .5em 2em;
+        border-radius: .5em;
+        border: 1px solid $secondary-color;
+        margin-bottom: 2em;
+        transition: border-color .3s, background-color .3s;
+
+        &.correct {
+            border-color: $correct;
+            background-color: $correct;
+        }
+
+        &.wrong {
+            border-color: $wrong;
+            background-color: $wrong;
+        }
+    }
+
+    p {
+        font-size: 1.1rem;
+        margin-top: 2em;
+    }
+
+    .input-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 1em;
+
+        input[type=text] {
+            font-size: 1.5rem;
+            padding: 1em;
+        }
+    }
+}
