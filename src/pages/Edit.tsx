@@ -5,6 +5,7 @@ import Plus from "../icons/Plus";
 import Delete from "../icons/Delete";
 import { Link } from 'react-router-dom';
 import toast from "react-hot-toast";
+import NotFound from "./NotFound";
 
 const Edit = () => {
     const [storage] = useState(new Storage())
@@ -88,7 +89,7 @@ const Edit = () => {
                     </div>
                 </div> 
             }
-            {!game && <h1>Game not found</h1>}
+            {!game && <NotFound/>}
         </div>
     )
 }

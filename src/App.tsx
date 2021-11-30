@@ -13,6 +13,7 @@ import {
 	Route
 } from "react-router-dom";
 import Edit from './pages/Edit';
+import NotFound from './pages/NotFound';
 
 const App = () => {
     const [theme, setTheme] = useLocalStorage('theme', 'dark')
@@ -29,6 +30,7 @@ const App = () => {
 						<Route path='/share/:game' element={<Share/>}/>
 						<Route path='/game/:id' element={<Game/>}/>
 						<Route path='/edit/:id' element={<Edit/>}/>
+						<Route path="*" element={<NotFound/>}/>
 					</Route>
 				</Routes>
 			</BrowserRouter>

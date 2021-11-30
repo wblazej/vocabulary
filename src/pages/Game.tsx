@@ -6,6 +6,7 @@ import randint from "../ts/randint";
 import toast from "react-hot-toast";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
+import NotFound from "./NotFound";
 
 const Game = () => {
     const { id } = useParams()
@@ -72,7 +73,7 @@ const Game = () => {
                     </div>
                 </>
                 :
-                <h1>Game not found</h1>
+                <NotFound/>
             }
         </div>
     )
