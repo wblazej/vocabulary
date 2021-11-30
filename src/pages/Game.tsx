@@ -47,27 +47,33 @@ const Game = () => {
     }
 
     // eslint-disable-next-line
-    useEffect(() => generateQuestion(), [])
+    useEffect(() => game && generateQuestion(), [])
 
     return (
         <div className="game-container">
-            <h1>playing {game.name}</h1>
+            {game ? 
+                <>
+                    <h1>playing {game.name}</h1>
 
-            <form onSubmit={check}>
-                <div className="input-container">
-                    <input type="text" onChange={(e) => setTranslation(translation => isCorrect === null ? e.target.value : translation)} value={translation} />
-                </div>
-            </form>
+                    <form onSubmit={check}>
+                        <div className="input-container">
+                            <input type="text" onChange={(e) => setTranslation(translation => isCorrect === null ? e.target.value : translation)} value={translation} />
+                        </div>
+                    </form>
 
-            <p>Translate to {fieldName}:</p>
-            <div className={classNames("word-to-translate", isCorrect !== null && (isCorrect ? "correct" : "wrong"))}>
-                {isCorrect === null ? wordToTranslate : (isCorrect ? wordToTranslate : correctTranslation)}
-            </div>
+                    <p>Translate to {fieldName}:</p>
+                    <div className={classNames("word-to-translate", isCorrect !== null && (isCorrect ? "correct" : "wrong"))}>
+                        {isCorrect === null ? wordToTranslate : (isCorrect ? wordToTranslate : correctTranslation)}
+                    </div>
 
-            <div className="buttons">
-                <Link to="/" className="button">Home</Link>
-                <button onClick={generateQuestion}>Next</button>
-            </div>
+                    <div className="buttons">
+                        <Link to="/" className="button">Home</Link>
+                        <button onClick={generateQuestion}>Next</button>
+                    </div>
+                </>
+                :
+                <h1>Game not found</h1>
+            }
         </div>
     )
 }
