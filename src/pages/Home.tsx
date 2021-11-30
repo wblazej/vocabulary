@@ -37,7 +37,7 @@ const Home = () => {
                         </div>
                         <div className="buttons">
                             <Link to={`game/${game.id}`} className="button">Play</Link>
-                            <button>Edit</button>
+                            <Link to={`edit/${game.id}`} className="button">Edit</Link>
                             <button onClick={() => copyShareLink(game)}>Share</button>
                         </div>
                     </div>
