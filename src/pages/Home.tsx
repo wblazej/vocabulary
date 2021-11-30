@@ -3,10 +3,27 @@ import Storage from './../ts/storage';
 import './../styles/home.scss';
 import { Link } from 'react-router-dom';
 import GameController from "../icons/GameControlelr";
+import IGame from "../typing/game";
+import toast from "react-hot-toast";
+import { safeBase64Encode } from './../ts/base64';
 
 const Home = () => {
     const [storage] = useState(new Storage())
     const [games] = useState(storage.getGames())
+    
+    const copyShareLink = (game: IGame) => {
+        let url = new URL(window.location.href);
+
+        const encodedGame = safeBase64Encode(JSON.stringify({
+            name: game.name,
+            fields: game.fields,
+            words: game.words
+        }));
+
+        navigator.clipboard.writeText(`${url.host}/share/${encodedGame}`);
+
+        toast.success("Copied sharing link!");
+    }
 
     return (
         <div className="home-page-container">
@@ -21,7 +38,7 @@ const Home = () => {
                         <div className="buttons">
                             <Link to={`game/${game.id}`} className="button">Play</Link>
                             <button>Edit</button>
-                            <button>Share</button>
+                            <button onClick={() => copyShareLink(game)}>Share</button>
                         </div>
                     </div>
                 ))}
