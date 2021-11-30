@@ -12,6 +12,12 @@ class Storage {
 
     deleteGame = (id: string) =>
         localStorage.setItem(this.storageItemName, JSON.stringify(this.readLocalStorage().filter(game => game.id !== id)))
+
+    updateGame = (id: string, words: Array<Array<string>>) => {
+        const game = this.getGame(id)
+        game.words = words
+        localStorage.setItem(this.storageItemName, JSON.stringify(this.readLocalStorage().map(g => g.id === id ? game : g)))
+    }
     
     readLocalStorage = (): Array<IGame> => {
         const boards = localStorage.getItem(this.storageItemName)

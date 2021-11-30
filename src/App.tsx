@@ -12,6 +12,7 @@ import {
 	Routes,
 	Route
 } from "react-router-dom";
+import Edit from './pages/Edit';
 
 const App = () => {
     const [theme, setTheme] = useLocalStorage('theme', 'dark')
@@ -27,6 +28,7 @@ const App = () => {
 						<Route path='/create' element={<Create/>}/>
 						<Route path='/share/:game' element={<Share/>}/>
 						<Route path='/game/:id' element={<Game/>}/>
+						<Route path='/edit/:id' element={<Edit/>}/>
 					</Route>
 				</Routes>
 			</BrowserRouter>
