@@ -5,8 +5,7 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        margin-top: 2em;
-        margin-bottom: 2em;
+        margin: 2em 0;
 
         .game {
             border: 1px solid $secondary-color;
@@ -16,26 +15,27 @@
             cursor: pointer;
             transition: border-color .3s, box-shadow .3s;
             text-decoration: none;
+            margin: 1em;
 
             span {
                 text-align: center;
                 display: block;
-                font-size: 1.1rem;
+                font-size: .9rem;
                 padding-bottom: .5em;
-                margin-bottom: 1em;
+                margin-bottom: .5em;
                 border-bottom: 1px solid $secondary-color;
             }
 
             .icon {
                 width: 5em;
-                height: 5em;
+                height: 3em;
                 margin: auto;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 padding: 1em;
 
-                img {
+                svg {
                     width: 80%;
                     height: auto;
                     transition: width .3s;
@@ -47,9 +47,19 @@
                 box-shadow: 0 0 20px 1px #000000;
 
                 .icon {
-                    img {
+                    svg {
                         width: 100%;
                     }
+                }
+            }
+
+            .buttons {
+                flex-direction: column;
+
+                button, a.button {
+                    font-size: .8rem;
+                    padding: .5em .8em;
+                    flex-basis: 100%;
                 }
             }
         }

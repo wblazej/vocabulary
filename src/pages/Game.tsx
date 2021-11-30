@@ -60,7 +60,9 @@ const Game = () => {
             </form>
 
             <p>Translate to {fieldName}:</p>
-            <div className={classNames("word-to-translate", isCorrect !== null && (isCorrect ? "correct" : "wrong"))}>{isCorrect === null ? wordToTranslate : (isCorrect ? wordToTranslate : correctTranslation)}</div>
+            <div className={classNames("word-to-translate", isCorrect !== null && (isCorrect ? "correct" : "wrong"))}>
+                {isCorrect === null ? wordToTranslate : (isCorrect ? wordToTranslate : correctTranslation)}
+            </div>
 
             <div className="buttons">
                 <Link to="/" className="button">Home</Link>

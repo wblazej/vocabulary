@@ -74,12 +74,12 @@
 
         .word {
             display: flex;
-            justify-content: space-between;
             position: relative;
 
             input {
                 flex-basis: 100%;
                 margin: .5em;
+                width: 5em !important;
             }
 
             .remove-button {

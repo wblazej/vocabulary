@@ -11,7 +11,7 @@ const Create = () => {
 
     const [step, setStep] = useState(1)
     const [name, setName] = useState("")
-    const [fields, setFields] = useState<Array<string>>([''])
+    const [fields, setFields] = useState<Array<string>>([])
     const [words, setWords] = useState<Array<Array<string>>>([])
 
     const next = () => {
@@ -40,6 +40,23 @@ const Create = () => {
         setStep(step => step < 4 ? step + 1 : step)
     }
 
+    const updateWord = (x: number, y: number, value: string) => {
+        setWords(words => words.map((word, word_i) => (
+            word_i === y ? word.map((translation, translation_i) => (
+                translation_i === x ? value : translation
+            )) : word))
+        )
+    }
+
+    const updateField = (i: number, value: string) => 
+        setFields(fields => fields.map((field, field_i) => i === field_i ? value : field))
+
+    const removeField = (i: number) =>
+        setFields(fields => fields.filter((field, field_i) => i !== field_i))
+
+    const removeWord = (i: number) =>
+        setWords(words => words.filter((word, word_i) => word_i !== i))
+
     return (
         <div className="create-game-container">
             {step === 1 && 
@@ -56,10 +73,8 @@ const Create = () => {
                     <h1>Add fields</h1>
                     {fields.map((field, i) => 
                         <div className="input-container" key={i}>
-                            <input type="text" value={fields[i]} onChange={
-                                (e) => setFields(fields => fields.map((field, index) => index === i ? e.target.value : field))
-                            }/>
-                            <div className="remove-button" onClick={() => setFields(fields => fields.filter((field, index) => index !== i))}><Delete/></div>
+                            <input type="text" value={fields[i]} onChange={(e) => updateField(i, e.currentTarget.value)}/>
+                            <div className="remove-button" onClick={() => removeField(i)}><Delete/></div>
                         </div>
                     )}
 
@@ -77,16 +92,17 @@ const Create = () => {
                         {words.map((word, word_index) => (
                             <div className="word" key={word_index}>
                                 {fields.map((field, field_index) => <input value={words[word_index][field_index]} key={field_index} type="text" onChange={
-                                    (e) => setWords(words => 
-                                        words.map((word, index) => 
-                                            index === word_index ? word.map((translation, translation_index) => 
-                                                translation_index === field_index ? e.target.value : translation) : word))
+                                    (e) => updateWord(field_index, word_index, e.currentTarget.value)
                                 } />)}
-                                <div className="remove-button" onClick={() => setWords(words => words.filter((word, index) => index !== word_index))}><Delete/></div>
+                                <div className="remove-button" onClick={() => removeWord(word_index)}><Delete/></div>
                             </div>
                         ))}
                     </div>
-                    <div onClick={() => setWords(words => [...words, Array(fields.length).fill('')])} className="add-button"><Plus/></div>
+                    <div 
+                        onClick={() => setWords(words => [...words, Array(fields.length).fill('')])} 
+                        className="add-button">
+                        <Plus/>
+                    </div>
                 </div>
             }
 
