@@ -55,7 +55,7 @@ const Game = () => {
 
             <form onSubmit={check}>
                 <div className="input-container">
-                    <input type="text" onChange={(e) => setTranslation(e.currentTarget.value)} value={translation} />
+                    <input type="text" onChange={(e) => setTranslation(translation => isCorrect === null ? e.target.value : translation)} value={translation} />
                 </div>
             </form>
 
