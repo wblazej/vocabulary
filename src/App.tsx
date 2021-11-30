@@ -22,7 +22,7 @@ const App = () => {
 
     return (
         <div className="app">
-			<BrowserRouter>
+			<BrowserRouter basename={process.env.PUBLIC_URL}>
 				<Routes>
 					<Route path='/'>
 						<Route index element={<Home/>}/>
