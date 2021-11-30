@@ -5,12 +5,14 @@ import Home from './pages/Home';
 import Create from './pages/Create';
 import Game from './pages/Game';
 import useLocalStorage from 'react-use-localstorage';
+import Share from './pages/Share';
 
 import {
 	BrowserRouter,
 	Routes,
 	Route
 } from "react-router-dom";
+import Edit from './pages/Edit';
 
 const App = () => {
     const [theme, setTheme] = useLocalStorage('theme', 'dark')
@@ -24,7 +26,9 @@ const App = () => {
 					<Route path='/'>
 						<Route index element={<Home/>}/>
 						<Route path='/create' element={<Create/>}/>
+						<Route path='/share/:game' element={<Share/>}/>
 						<Route path='/game/:id' element={<Game/>}/>
+						<Route path='/edit/:id' element={<Edit/>}/>
 					</Route>
 				</Routes>
 			</BrowserRouter>

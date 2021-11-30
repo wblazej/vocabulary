@@ -29,7 +29,9 @@ const Create = () => {
                 return toast.error("Any word translation field cannot be blank")
 
             storage.createGame({
+                id: storage.generateUUID(),
                 name: name,
+                created_at: Date.now(),
                 fields: fields,
                 words: words
             })
