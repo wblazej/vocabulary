@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/vocabulary/static/css/main.cde11f78.chunk.css",
-    "main.js": "/vocabulary/static/js/main.b9148917.chunk.js",
+    "main.js": "/vocabulary/static/js/main.af8360d1.chunk.js",
     "runtime-main.js": "/vocabulary/static/js/runtime-main.dce18b31.js",
     "static/js/2.31f9531a.chunk.js": "/vocabulary/static/js/2.31f9531a.chunk.js",
     "static/js/3.3c6a84af.chunk.js": "/vocabulary/static/js/3.3c6a84af.chunk.js",
@@ -12,6 +12,6 @@
     "static/js/runtime-main.dce18b31.js",
     "static/js/2.31f9531a.chunk.js",
     "static/css/main.cde11f78.chunk.css",
-    "static/js/main.b9148917.chunk.js"
+    "static/js/main.af8360d1.chunk.js"
   ]
 }
