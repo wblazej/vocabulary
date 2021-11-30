@@ -1,27 +1,21 @@
 import IGame from "../typing/game"
 
 class Storage {
-    storageItemName = "boards"
+    storageItemName = "games"
 
-    getGame = (id: string): IGame => this.readLocalStorage()[id]
+    getGame = (id: string): IGame => this.readLocalStorage().filter(game => game.id === id)[0]
 
-    getGames = (): {[key: string]: IGame} => this.readLocalStorage()
+    getGames = (): Array<IGame> => this.readLocalStorage().sort((a, b) => a.created_at < b.created_at ? 1 : -1)
 
-    createGame = (new_board: IGame) => {
-        const boards = this.readLocalStorage()
-        boards[this.generateUUID()] = new_board
-        localStorage.setItem(this.storageItemName, JSON.stringify(boards))
-    }
+    createGame = (new_board: IGame) =>
+        localStorage.setItem(this.storageItemName, JSON.stringify(this.readLocalStorage().concat(new_board)))
 
-    deleteGame = (id: string) => {
-        const boards = this.readLocalStorage()
-        delete boards[id]
-        localStorage.setItem(this.storageItemName, JSON.stringify(boards))
-    }
+    deleteGame = (id: string) =>
+        localStorage.setItem(this.storageItemName, JSON.stringify(this.readLocalStorage().filter(game => game.id !== id)))
     
-    readLocalStorage = () => {
+    readLocalStorage = (): Array<IGame> => {
         const boards = localStorage.getItem(this.storageItemName)
-        return boards ? JSON.parse(boards) : {}
+        return boards ? JSON.parse(boards) : []
     }
 
     generateUUID = (): string => {

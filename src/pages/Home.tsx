@@ -12,14 +12,14 @@ const Home = () => {
         <div className="home-page-container">
             <h1>learn vocabulary</h1>
             <div className="games">
-                {Object.keys(games).map((gameID, i) => (
+                {games.map((game, i) => (
                     <div className="game" key={i}>
-                        <span className="name">{games[gameID].name}</span>
+                        <span className="name">{game.name}</span>
                         <div className="icon">
                             <GameController/>
                         </div>
                         <div className="buttons">
-                            <Link to={`game/${gameID}`} className="button">Play</Link>
+                            <Link to={`game/${game.id}`} className="button">Play</Link>
                             <button>Edit</button>
                             <button>Share</button>
                         </div>
