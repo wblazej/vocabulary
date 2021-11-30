@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Create from './pages/Create';
 import Game from './pages/Game';
 import useLocalStorage from 'react-use-localstorage';
+import Share from './pages/Share';
 
 import {
 	BrowserRouter,
@@ -24,6 +25,7 @@ const App = () => {
 					<Route path='/'>
 						<Route index element={<Home/>}/>
 						<Route path='/create' element={<Create/>}/>
+						<Route path='/share/:game' element={<Share/>}/>
 						<Route path='/game/:id' element={<Game/>}/>
 					</Route>
 				</Routes>
