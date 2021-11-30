@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/GitGist/vocabulary/static/css/main.cde11f78.chunk.css",
-    "main.js": "/GitGist/vocabulary/static/js/main.b9148917.chunk.js",
-    "runtime-main.js": "/GitGist/vocabulary/static/js/runtime-main.2ea098d0.js",
-    "static/js/2.31f9531a.chunk.js": "/GitGist/vocabulary/static/js/2.31f9531a.chunk.js",
-    "static/js/3.3c6a84af.chunk.js": "/GitGist/vocabulary/static/js/3.3c6a84af.chunk.js",
-    "index.html": "/GitGist/vocabulary/index.html",
-    "static/js/2.31f9531a.chunk.js.LICENSE.txt": "/GitGist/vocabulary/static/js/2.31f9531a.chunk.js.LICENSE.txt"
+    "main.css": "/vocabulary/static/css/main.cde11f78.chunk.css",
+    "main.js": "/vocabulary/static/js/main.b9148917.chunk.js",
+    "runtime-main.js": "/vocabulary/static/js/runtime-main.dce18b31.js",
+    "static/js/2.31f9531a.chunk.js": "/vocabulary/static/js/2.31f9531a.chunk.js",
+    "static/js/3.3c6a84af.chunk.js": "/vocabulary/static/js/3.3c6a84af.chunk.js",
+    "index.html": "/vocabulary/index.html",
+    "static/js/2.31f9531a.chunk.js.LICENSE.txt": "/vocabulary/static/js/2.31f9531a.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.2ea098d0.js",
+    "static/js/runtime-main.dce18b31.js",
     "static/js/2.31f9531a.chunk.js",
     "static/css/main.cde11f78.chunk.css",
     "static/js/main.b9148917.chunk.js"
