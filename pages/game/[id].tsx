@@ -85,9 +85,13 @@ const Game = () => {
                     </div>
 
                     <div className={ButtonStyles.buttons}>
-                        <div className={ButtonStyles.button}>
-                            <Link href="/" passHref>Home</Link>
-                        </div>
+                        
+                        <Link href="/" passHref>
+                            <div className={ButtonStyles.button}>
+                                Home
+                            </div>
+                        </Link>
+                        
                         <button onClick={generateQuestion}>Next</button>
                     </div>
                 </>

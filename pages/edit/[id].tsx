@@ -12,9 +12,11 @@ import ButtonStyles from "../../styles/Buttons.module.scss";
 const Edit = () => {
     const [storage] = useState(new Storage())
     const router = useRouter();
+    const [step, setStep] = useState(1);
     const { id } = router.query;
     const [game, setGame] = useState(storage.getGame(id as string || ""))
     const [words, setWords] = useState(game ? game.words : [])
+    const [editedGame, setEditedGame] = useState("");
 
     const updateWord = (x: number, y: number, value: string) => {
         setWords(words => words.map((word, word_i) => (
@@ -28,7 +30,18 @@ const Edit = () => {
         setWords(words => words.filter((_, word_i) => word_i !== i))
 
     const save = () => {
-        storage.updateGame(game.id, words)
+        const g = JSON.stringify({
+            ...game,
+            words
+        });
+        setEditedGame(g);
+
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(g);
+        }
+
+        setStep(2);
+
         toast.success("New words has been saved")
     }
 
@@ -48,7 +61,6 @@ const Edit = () => {
         }
         else {
             toast.dismiss(waitForConToast)
-            storage.deleteGame(game.id)
             setDeleted(true)
             toast.success("Game has been deleted successfully")
         }
@@ -68,7 +80,7 @@ const Edit = () => {
 
     return (
         <div>
-            {game && !deleted && 
+            {game && step == 1 && 
                 <div className={styles.step}>
                     <h1>Edit words of {game.name}</h1>
                     <div className={styles["fields-names"]}>
@@ -98,15 +110,21 @@ const Edit = () => {
                     </div>
                 </div>  
             }
-            {game && deleted &&
+
+            {game && step == 2 && 
                 <div className={styles.step}>
-                    <h1>game deleted</h1>
-                    <div className={ButtonStyles.buttons}>
+                <h1>Game edited</h1>
+                <p>Changed game with id `{game.id}` in database file.</p>
+
+                <p>{editedGame}</p>
+                <div className={ButtonStyles.buttons}>
+                    <Link href="/" passHref>
                         <div className={ButtonStyles.button}>
-                            <Link href='/' passHref>Home page</Link>
+                            Home page
                         </div>
-                    </div>
-                </div> 
+                    </Link>
+                </div>
+            </div>
             }
         </div>
     )

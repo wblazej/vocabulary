@@ -12,6 +12,7 @@ const Create = () => {
 
     const [step, setStep] = useState(1)
     const [name, setName] = useState("")
+    const [createdGame, setCreatedGame] = useState("");
     const [fields, setFields] = useState<Array<string>>([])
     const [words, setWords] = useState<Array<Array<string>>>([])
 
@@ -28,14 +29,19 @@ const Create = () => {
             if (words.length < 1) return toast.error("At least 1 word is required")
             if (words.filter(word => word.filter(translation => translation === '').length).length) 
                 return toast.error("Any word translation field cannot be blank")
-
-            storage.createGame({
+            
+            const g = JSON.stringify({
                 id: storage.generateUUID(),
                 name: name,
                 created_at: Date.now(),
                 fields: fields,
                 words: words
-            })
+            });
+            setCreatedGame(g);
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(g);
+            }
 
             toast.success("Game created successfully")
         }
@@ -55,10 +61,10 @@ const Create = () => {
         setFields(fields => fields.map((field, field_i) => i === field_i ? value : field))
 
     const removeField = (i: number) =>
-        setFields(fields => fields.filter((field, field_i) => i !== field_i))
+        setFields(fields => fields.filter((_, field_i) => i !== field_i))
 
     const removeWord = (i: number) =>
-        setWords(words => words.filter((word, word_i) => word_i !== i))
+        setWords(words => words.filter((_, word_i) => word_i !== i))
 
     return (
         <div>
@@ -74,7 +80,7 @@ const Create = () => {
             {step === 2 &&
                 <div className={styles.step}>
                     <h1>Add fields</h1>
-                    {fields.map((field, i) => 
+                    {fields.map((_, i) => 
                         <div className={styles["input-container"]} key={i}>
                             <input type="text" value={fields[i]} onChange={(e) => updateField(i, e.currentTarget.value)}/>
                             <div className={styles["remove-button"]} onClick={() => removeField(i)}><Delete/></div>
@@ -94,7 +100,7 @@ const Create = () => {
                     <div className={styles.words}>
                         {words.map((_, word_index) => (
                             <div className={styles.word} key={word_index}>
-                                {fields.map((field, field_index) => <input value={words[word_index][field_index]} key={field_index} type="text" onChange={
+                                {fields.map((_, field_index) => <input value={words[word_index][field_index]} key={field_index} type="text" onChange={
                                     (e) => updateWord(field_index, word_index, e.currentTarget.value)
                                 } />)}
                                 <div className={styles["remove-button"]} onClick={() => removeWord(word_index)}><Delete/></div>
@@ -112,11 +118,15 @@ const Create = () => {
             {step === 4 && 
                 <div className={styles.step}>
                     <h1>Game created</h1>
-                    <p>Click button below to return to home page</p>
+                    <p>Add generated game to database file.</p>
+
+                    <p>{createdGame}</p>
                     <div className={ButtonStyles.buttons}>
-                        <div className={ButtonStyles.button}>
-                            <Link href="/" passHref>Home page</Link>
-                        </div>
+                        <Link href="/" passHref>
+                            <div className={ButtonStyles.button}>
+                                Home page
+                            </div>
+                        </Link>
                     </div>
                 </div>
             }
