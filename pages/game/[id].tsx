@@ -92,7 +92,7 @@ const Game = () => {
                             </div>
                         </Link>
                         
-                        <button onClick={generateQuestion}>Next</button>
+                        <button onClick={generateQuestion}>Skip question</button>
                     </div>
                 </>
             }
