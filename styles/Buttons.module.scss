@@ -1,0 +1,35 @@
+@import "./variables";
+
+.button {
+    background-color: $accent-color;
+    color: $secondary-color;
+    font-size: 1.1rem;
+    padding: .5em 1em;
+    border-radius: .5em;
+    border: none;
+    cursor: pointer;
+    transition: opacity .3s;
+    margin: .5em;
+    display: inline-block;
+    text-align: center;
+
+    a {
+        text-decoration: none;
+    }
+    
+    &:hover {
+        opacity: .8;
+    }
+
+    &[disabled] {
+        opacity: .5 !important;
+        cursor: default;
+        pointer-events: none;
+    }
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}

@@ -1,0 +1,68 @@
+@import './variables';
+
+.games {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 2em 0;
+
+    .game {
+        border: 1px solid $border-color;
+        border-radius: .5em;
+        width: 10em;
+        padding: 1em;
+        cursor: pointer;
+        transition: border-color .3s, box-shadow .3s;
+        text-decoration: none;
+        margin: 1em;
+
+        span {
+            text-align: center;
+            display: block;
+            font-size: .9rem;
+            padding-bottom: .5em;
+            margin-bottom: .5em;
+            border-bottom: 1px solid $secondary-color;
+        }
+
+        .icon {
+            width: 5em;
+            height: 3em;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1em;
+
+            svg {
+                width: 80%;
+                height: auto;
+                transition: width .3s;
+
+                path {
+                    fill: $secondary-color;
+                }
+            }
+        }
+
+        &:hover {
+            box-shadow: 0 0 20px 5px $box-shadow-color;
+
+            .icon {
+                svg {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+.buttons {
+    flex-direction: column !important;
+
+    button, .button {
+        font-size: .8rem;
+        padding: .5em .8em;
+        flex-basis: 100%;
+    }
+}

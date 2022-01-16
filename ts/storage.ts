@@ -1,4 +1,4 @@
-import IGame from "../typing/game"
+import IGame from "../typings/Game"
 
 class Storage {
     storageItemName = "games"
@@ -20,7 +20,7 @@ class Storage {
     }
     
     readLocalStorage = (): Array<IGame> => {
-        const boards = localStorage.getItem(this.storageItemName)
+        const boards = typeof window !== "undefined" && localStorage.getItem(this.storageItemName)
         return boards ? JSON.parse(boards) : []
     }
 

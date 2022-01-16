@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Storage from "../ts/storage";
-import './../styles/game.scss';
-import randint from "../ts/randint";
+import Storage from "../../ts/storage";
+import randint from "../../ts/randint";
 import toast from "react-hot-toast";
 import classNames from "classnames";
-import { Link } from "react-router-dom";
-import NotFound from "./NotFound";
+import { useRouter } from "next/router";
+import Link from "next/link";
+
+import styles from "../../styles/Game.module.scss";
+import ButtonStyles from "../../styles/Buttons.module.scss";
 
 const Game = () => {
-    const { id } = useParams()
+    const router = useRouter();
+    const { id } = router.query;
     const [storage] = useState(new Storage())
-    const [game] = useState(storage.getGame(id ? id : ""))
+    const [game, setGame] = useState(storage.getGame(id ? id as string : ""))
 
     const [translation, setTranslation] = useState("")
     const [isCorrect, setIsCorrect] = useState<boolean | null>(null)
@@ -28,7 +30,7 @@ const Game = () => {
         const correctWordIndex = randint(0, word.length - 1)
         setFieldName(game.fields[correctWordIndex])
         setCorrectTranslation(word[correctWordIndex])
-        setWordToTranslate(word.filter((w, i) => i !== correctWordIndex)[randint(0, word.length - 2)])
+        setWordToTranslate(word.filter((_, i) => i !== correctWordIndex)[randint(0, word.length - 2)])
     }
 
     const check = (e: React.FormEvent) => {
@@ -47,33 +49,48 @@ const Game = () => {
         }
     }
 
-    // eslint-disable-next-line
-    useEffect(() => game && generateQuestion(), [])
+    useEffect(() => {
+        if (game) {
+            generateQuestion();
+        }
+    }, [game]);
+
+    useEffect(() => {
+        if (!game && id) {
+            const g = storage.getGame(id as string || "");
+            if (!g) {
+                router.replace("/404");
+            } else {
+                setGame(g);
+            }
+        }
+    }, [id, game]);
+
 
     return (
-        <div className="game-container">
-            {game ? 
+        <div className={styles["game-container"]}>
+            {game &&
                 <>
                     <h1>playing {game.name}</h1>
 
                     <form onSubmit={check}>
-                        <div className="input-container">
+                        <div className={styles["input-container"]}>
                             <input type="text" onChange={(e) => setTranslation(translation => isCorrect === null ? e.target.value : translation)} value={translation} />
                         </div>
                     </form>
 
                     <p>Translate to {fieldName}:</p>
-                    <div className={classNames("word-to-translate", isCorrect !== null && (isCorrect ? "correct" : "wrong"))}>
+                    <div className={classNames(styles["word-to-translate"], isCorrect !== null && (isCorrect ? styles.correct : styles.wrong))}>
                         {isCorrect === null ? wordToTranslate : (isCorrect ? wordToTranslate : correctTranslation)}
                     </div>
 
-                    <div className="buttons">
-                        <Link to="/" className="button">Home</Link>
+                    <div className={ButtonStyles.buttons}>
+                        <div className={ButtonStyles.button}>
+                            <Link href="/" passHref>Home</Link>
+                        </div>
                         <button onClick={generateQuestion}>Next</button>
                     </div>
                 </>
-                :
-                <NotFound/>
             }
         </div>
     )
