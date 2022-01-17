@@ -4,12 +4,13 @@ import randint from "../../ts/randint";
 import toast from "react-hot-toast";
 import classNames from "classnames";
 import { useRouter } from "next/router";
+import type { NextPage } from "next";
 import Link from "next/link";
 
 import styles from "../../styles/Game.module.scss";
 import ButtonStyles from "../../styles/Buttons.module.scss";
 
-const Game = () => {
+const Game: NextPage = () => {
     const router = useRouter();
     const { id } = router.query;
     const [storage] = useState(new Storage())

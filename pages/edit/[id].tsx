@@ -5,11 +5,12 @@ import Delete from "../../icons/Delete";
 import toast from "react-hot-toast";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import type { NextPage } from "next";
 
 import styles from "../../styles/Create.module.scss";
 import ButtonStyles from "../../styles/Buttons.module.scss";
 
-const Edit = () => {
+const Edit: NextPage = () => {
     const [storage] = useState(new Storage())
     const router = useRouter();
     const [step, setStep] = useState(1);

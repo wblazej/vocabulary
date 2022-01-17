@@ -6,8 +6,9 @@ import toast from 'react-hot-toast';
 import Link from 'next/link';
 import styles from "../styles/Create.module.scss";
 import ButtonStyles from "../styles/Buttons.module.scss";
+import type { NextPage } from 'next';
 
-const Create = () => {
+const Create: NextPage = () => {
     const [storage] =  useState(new Storage())
 
     const [step, setStep] = useState(1)
