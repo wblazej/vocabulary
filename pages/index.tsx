@@ -27,6 +27,12 @@ const Home: NextPage = () => {
                                 Play
                             </div>
                         </Link>
+
+                        <Link href={`/show/${game.id}`} passHref>
+                            <div className={buttonStyles.button}>
+                                Show words
+                            </div>
+                        </Link>
                       </div>
                   </div>
               ))}
