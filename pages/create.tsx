@@ -2,15 +2,18 @@ import { useState } from 'react';
 import Delete from '../icons/Delete';
 import Plus from '../icons/Plus';
 import Storage from '../ts/storage';
-import './../styles/create.scss';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
+import styles from "../styles/Create.module.scss";
+import ButtonStyles from "../styles/Buttons.module.scss";
+import type { NextPage } from 'next';
 
-const Create = () => {
+const Create: NextPage = () => {
     const [storage] =  useState(new Storage())
 
     const [step, setStep] = useState(1)
     const [name, setName] = useState("")
+    const [createdGame, setCreatedGame] = useState("");
     const [fields, setFields] = useState<Array<string>>([])
     const [words, setWords] = useState<Array<Array<string>>>([])
 
@@ -27,14 +30,19 @@ const Create = () => {
             if (words.length < 1) return toast.error("At least 1 word is required")
             if (words.filter(word => word.filter(translation => translation === '').length).length) 
                 return toast.error("Any word translation field cannot be blank")
-
-            storage.createGame({
+            
+            const g = JSON.stringify({
                 id: storage.generateUUID(),
                 name: name,
                 created_at: Date.now(),
                 fields: fields,
                 words: words
-            })
+            });
+            setCreatedGame(g);
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(g);
+            }
 
             toast.success("Game created successfully")
         }
@@ -54,72 +62,78 @@ const Create = () => {
         setFields(fields => fields.map((field, field_i) => i === field_i ? value : field))
 
     const removeField = (i: number) =>
-        setFields(fields => fields.filter((field, field_i) => i !== field_i))
+        setFields(fields => fields.filter((_, field_i) => i !== field_i))
 
     const removeWord = (i: number) =>
-        setWords(words => words.filter((word, word_i) => word_i !== i))
+        setWords(words => words.filter((_, word_i) => word_i !== i))
 
     return (
-        <div className="create-game-container">
+        <div>
             {step === 1 && 
-                <div className="step">
+                <div className={styles.step}>
                     <h1>Create name of new game</h1>
-                    <div className="input-container">
+                    <div className={styles["input-container"]}>
                         <input type="text" value={name} onChange={(e) => setName(e.currentTarget.value)} />
                     </div>
                 </div>
             }
 
             {step === 2 &&
-                <div className="step">
+                <div className={styles.step}>
                     <h1>Add fields</h1>
-                    {fields.map((field, i) => 
-                        <div className="input-container" key={i}>
+                    {fields.map((_, i) => 
+                        <div className={styles["input-container"]} key={i}>
                             <input type="text" value={fields[i]} onChange={(e) => updateField(i, e.currentTarget.value)}/>
-                            <div className="remove-button" onClick={() => removeField(i)}><Delete/></div>
+                            <div className={styles["remove-button"]} onClick={() => removeField(i)}><Delete/></div>
                         </div>
                     )}
 
-                    <div onClick={() => setFields(fields => [...fields, ""])} className="add-button"><Plus/></div>
+                    <div onClick={() => setFields(fields => [...fields, ""])} className={styles["add-button"]}><Plus/></div>
                 </div>
             }
 
             {step === 3 &&
-                <div className="step">
+                <div className={styles.step}>
                     <h1>Add words to fields</h1>
-                    <div className="fields-names">
-                        {fields.map((field, i) => <div className="name" key={i}>{field}</div>)}
+                    <div className={styles["fields-names"]}>
+                        {fields.map((field, i) => <div className={styles.name} key={i}>{field}</div>)}
                     </div>
-                    <div className="words">
-                        {words.map((word, word_index) => (
-                            <div className="word" key={word_index}>
-                                {fields.map((field, field_index) => <input value={words[word_index][field_index]} key={field_index} type="text" onChange={
+                    <div className={styles.words}>
+                        {words.map((_, word_index) => (
+                            <div className={styles.word} key={word_index}>
+                                {fields.map((_, field_index) => <input value={words[word_index][field_index]} key={field_index} type="text" onChange={
                                     (e) => updateWord(field_index, word_index, e.currentTarget.value)
                                 } />)}
-                                <div className="remove-button" onClick={() => removeWord(word_index)}><Delete/></div>
+                                <div className={styles["remove-button"]} onClick={() => removeWord(word_index)}><Delete/></div>
                             </div>
                         ))}
                     </div>
                     <div 
                         onClick={() => setWords(words => [...words, Array(fields.length).fill('')])} 
-                        className="add-button">
+                        className={styles["add-button"]}>
                         <Plus/>
                     </div>
                 </div>
             }
 
             {step === 4 && 
-                <div className="step">
+                <div className={styles.step}>
                     <h1>Game created</h1>
-                    <p>Click button below to return to home page</p>
-                    <div className="buttons">
-                        <Link to="/" className="button">Home page</Link>
+                    <p>Add generated game to database file.</p>
+
+                    <p>{createdGame}</p>
+                    <div className={ButtonStyles.buttons}>
+                        <Link href="/" passHref>
+                            <div className={ButtonStyles.button}>
+                                Home page
+                            </div>
+                        </Link>
                     </div>
                 </div>
             }
 
             {step !== 4 &&
-                <div className="buttons">
+                <div className={ButtonStyles.buttons}>
                     <button onClick={next}>Next</button>
                 </div>
             }
